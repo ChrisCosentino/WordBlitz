@@ -1,27 +1,34 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import PlayContext from '../context/play/playContext';
+import Leaderboard from './Leaderboard';
 
 const Play = () => {
   const [countdown, setCountdown] = useState(10);
-  const [gameOver, setGameOver] = useState(false);
+  // const [gameOver, setGameOver] = useState(false);
 
-  const [words, setWords] = useState(['treehouse', 'stamp', 'car', 'state']);
+  // const [words, setWords] = useState(['treehouse', 'stamp', 'car', 'state']);
   const [currentWord, setCurrentWord] = useState(0);
 
   const [timer, setTimer] = useState(null);
 
-  const [correctWords, setCorrectWords] = useState([]);
+  // const [correctWords, setCorrectWords] = useState([]);
 
   // This one keep on local dont put in context
   const [text, setText] = useState('');
 
   const playContext = useContext(PlayContext);
 
+  const { getWords, addCorrectWord, words, gameover, username } = playContext;
+
   useEffect(() => {
     startTimer();
-    console.log(words);
   }, [countdown]);
+
+  useEffect(() => {
+    getWords();
+  }, []);
 
   // Resets the timer to 10 seconds
   const startTimer = () => {
@@ -43,18 +50,13 @@ const Play = () => {
 
   // The correct word. Move to next word
   const correctWord = () => {
-    // console.log('correct');
-    console.log(countdown);
-
-    console.log(words[currentWord + 1]);
-    //STORE COUNTDOWN
     resetTimer();
     const w = {
       timeLeft: countdown,
-      word: words[currentWord],
+      word: playContext.words[currentWord],
     };
 
-    playContext.addCorrectWord(w);
+    addCorrectWord(w);
 
     // Check if the next word is empty. If it is end game, if not continue
     if (words[currentWord + 1] === undefined) {
@@ -69,7 +71,8 @@ const Play = () => {
   // Game over
   const gameEnded = () => {
     setTimer(clearTimeout(timer));
-    setGameOver(true);
+    playContext.setGameover();
+    // setGameOver(true);
   };
 
   // The text input value
@@ -80,14 +83,22 @@ const Play = () => {
     }
   };
 
-  if (gameOver) {
-    return <div>Game Over</div>;
+  if (username === '') {
+    resetTimer();
+    return <Redirect to='/' />;
+  }
+
+  if (gameover) {
+    // resetTimer();
+    return <Leaderboard />;
   }
 
   return (
     <div>
       {countdown}
       <input type='text' onChange={handleChange} value={text} />
+      {playContext.words[currentWord]}
+      {playContext.score}
     </div>
   );
 };

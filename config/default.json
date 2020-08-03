@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://dbUser:Buddy13c@cluster0.dvdgm.mongodb.net/word-eater?retryWrites=true&w=majority"
+}
