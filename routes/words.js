@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   // console.log(randomWords({exactly:5, wordsPerString:2, separator:'-'}))
   // [ 'equator-variety', 'salt-usually', 'importance-becoming', 'stream-several', 'goes-fight' ]
   try {
-    return res.send(randomWords(5));
+    return res.send(randomWords({ exactly: 15, minLength: 5 }));
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Word Eater",
+  "name": "Word Eater Spelling Speed Game",
   "icons": [
     {
       "src": "favicon.ico",

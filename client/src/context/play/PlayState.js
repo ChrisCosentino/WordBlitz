@@ -9,6 +9,7 @@ import {
   GET_WORDS,
   SET_USERNAME,
   SET_GAMEOVER,
+  CLEAR_GAME,
 } from '../types';
 
 const PlayState = (props) => {
@@ -55,13 +56,10 @@ const PlayState = (props) => {
 
   // set gameover
   const setGameover = async () => {
-    axios
+    await axios
       .post('api/leaderboard', {
         username: state.username,
         score: state.score,
-      })
-      .then((res) => {
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err.message);
@@ -72,8 +70,25 @@ const PlayState = (props) => {
     });
   };
 
-  // generate a score
-  const getScore = () => {};
+  // clear game
+  const clearGame = () => {
+    state.username = '';
+    state.words = [];
+    state.score = 0;
+    state.gameover = false;
+    state.correctWords = [];
+
+    dispatch({
+      type: CLEAR_GAME,
+      payload: {
+        username: state.username,
+        words: state.words,
+        score: state.score,
+        gameover: state.gameover,
+        correctWords: state.correctWords,
+      },
+    });
+  };
 
   return (
     <PlayContext.Provider
@@ -87,6 +102,7 @@ const PlayState = (props) => {
         score: state.score,
         setGameover,
         gameover: state.gameover,
+        clearGame,
       }}>
       {props.children}
     </PlayContext.Provider>

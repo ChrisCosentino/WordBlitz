@@ -6,6 +6,9 @@ import Play from './components/Play';
 
 import PlayState from './context/play/PlayState';
 
+import './styles.css';
+import Leaderboard from './components/Leaderboard';
+
 const App = () => {
   // const [countdown, setCountdown] = useState(10);
   // const [gameOver, setGameOver] = useState(false);
@@ -86,7 +89,8 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/play' component={Play} />
+          <Route exact path='/play' component={Play} />
+          <Route exact path='/leaderboard' component={Leaderboard} />
         </Switch>
       </Router>
     </PlayState>

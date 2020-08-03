@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import PlayContext from '../context/play/playContext';
@@ -20,7 +20,14 @@ const Play = () => {
 
   const playContext = useContext(PlayContext);
 
-  const { getWords, addCorrectWord, words, gameover, username } = playContext;
+  const {
+    getWords,
+    addCorrectWord,
+    words,
+    gameover,
+    username,
+    setGameover,
+  } = playContext;
 
   useEffect(() => {
     startTimer();
@@ -53,7 +60,7 @@ const Play = () => {
     resetTimer();
     const w = {
       timeLeft: countdown,
-      word: playContext.words[currentWord],
+      word: words[currentWord],
     };
 
     addCorrectWord(w);
@@ -71,7 +78,7 @@ const Play = () => {
   // Game over
   const gameEnded = () => {
     setTimer(clearTimeout(timer));
-    playContext.setGameover();
+    setGameover();
     // setGameOver(true);
   };
 
@@ -85,20 +92,42 @@ const Play = () => {
 
   if (username === '') {
     resetTimer();
-    return <Redirect to='/' />;
+    // return <Redirect to='/' />;
   }
 
   if (gameover) {
     // resetTimer();
-    return <Leaderboard />;
+    // return <Leaderboard />;
+    return <Redirect to='/leaderboard' />;
   }
 
   return (
-    <div>
-      {countdown}
-      <input type='text' onChange={handleChange} value={text} />
-      {playContext.words[currentWord]}
-      {playContext.score}
+    <div className='container'>
+      <h1 className='title noselect'>{playContext.words[currentWord]}</h1>
+
+      <input
+        ref={(input) => input && input.focus()}
+        type='text'
+        onChange={handleChange}
+        value={text}
+        className='text-input'
+        placeholder='Enter the word'
+        spellcheck='false'
+        autoCapitalize='off'
+        autoComplete='off'
+        autocorrect='off'
+      />
+      <div className='tiny'>
+        <div className='tiny-container'>
+          <span className='tiny-title'>Countdown</span>
+          <span className='tiny-value'>{countdown}</span>
+        </div>
+
+        <div className='tiny-container'>
+          <span className='tiny-title'>Score</span>
+          <span className='tiny-value'>{playContext.score}</span>
+        </div>
+      </div>
     </div>
   );
 };

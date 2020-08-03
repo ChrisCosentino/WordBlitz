@@ -3,6 +3,7 @@ import {
   ADD_CORRECT_WORD,
   SET_USERNAME,
   SET_GAMEOVER,
+  CLEAR_GAME,
 } from '../types';
 
 export default (state, action) => {
@@ -27,6 +28,14 @@ export default (state, action) => {
       return {
         ...state,
         gameover: true,
+      };
+    case CLEAR_GAME:
+      return {
+        username: action.payload.username,
+        words: action.payload.words,
+        score: action.payload.score,
+        gameover: action.payload.gameover,
+        correctWords: action.payload.correctWords,
       };
     default:
       return state;

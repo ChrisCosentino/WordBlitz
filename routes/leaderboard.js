@@ -8,7 +8,7 @@ const Score = require('../models/Score');
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    let score = await Score.find().sort({ score: 'desc' });
+    let score = await Score.find().sort({ score: 'desc' }).limit(15);
     res.send(score);
   } catch (err) {
     console.error(err.message);
