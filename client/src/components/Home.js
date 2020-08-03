@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import PlayContext from '../context/play/playContext';
@@ -12,6 +12,7 @@ const Home = () => {
   useEffect(() => {
     // reset all state variables
     playContext.clearGame();
+    // eslint-disable-next-line
   }, []);
 
   const handleChange = (e) => {
@@ -39,10 +40,10 @@ const Home = () => {
           placeholder='Enter a username'
           onChange={handleChange}
           required
-          spellcheck='false'
+          spellCheck='false'
           autoCapitalize='off'
           autoComplete='off'
-          autocorrect='off'
+          autoCorrect='off'
         />
         <input type='submit' value='Enter' className='btn' />
       </form>

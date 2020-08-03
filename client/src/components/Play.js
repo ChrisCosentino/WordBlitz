@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import PlayContext from '../context/play/playContext';
-import Leaderboard from './Leaderboard';
 
 const Play = () => {
   const [countdown, setCountdown] = useState(10);
@@ -31,10 +30,12 @@ const Play = () => {
 
   useEffect(() => {
     startTimer();
+    // eslint-disable-next-line
   }, [countdown]);
 
   useEffect(() => {
     getWords();
+    // eslint-disable-next-line
   }, []);
 
   // Resets the timer to 10 seconds
@@ -112,10 +113,10 @@ const Play = () => {
         value={text}
         className='text-input'
         placeholder='Enter the word'
-        spellcheck='false'
+        spellCheck='false'
         autoCapitalize='off'
         autoComplete='off'
-        autocorrect='off'
+        autoCorrect='off'
       />
       <div className='tiny'>
         <div className='tiny-container'>

@@ -21,8 +21,14 @@ const Leaderboard = () => {
       <h1 className='title'>Leaderboard</h1>
       <ol>
         {standings.map((user) => (
-          <li>
-            <span className='player-name'>{user.username}</span>
+          <li key={user._id}>
+            {playContext.username === user.username ? (
+              <span className='player-name' style={{ color: 'yellow' }}>
+                {user.username}
+              </span>
+            ) : (
+              <span className='player-name'>{user.username}</span>
+            )}
             {' - '}
             <span className='player-score'>{user.score}</span>
           </li>
