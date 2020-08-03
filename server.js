@@ -9,8 +9,6 @@ connectDB();
 
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => res.send('api running'));
-
 app.use('/api/words', require('./routes/words'));
 app.use('/api/leaderboard', require('./routes/leaderboard'));
 

@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <div className='container'>
       <form onSubmit={handleSubmit} className='form-container'>
-        <h1 className='title'>Word Eater</h1>
+        <h1 className='title'>Word Blitz</h1>
         <input
           ref={(input) => input && input.focus()}
           className='text-input'
